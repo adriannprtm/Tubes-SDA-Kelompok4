@@ -1,0 +1,36 @@
+=======================================
+Tata Cara Menggunakan Aplikasi ClevCalc
+=======================================
+A. Fitur Kalkulator Ilmiah
+   Fitur ini dapat digunakan jika kita ingin menghitung suatu perhitungan operasi matematika yang menggunakan
+   Operator parenthesis atau tanda kurung, perpangkatan (^), perkalian (*), pembagian (/), Penjumlahan (+), Pengurangan (-)
+   Untuk menggunakannya kita bisa melakukan langkah langkah seperti dibawah ini
+	1. Pada tampilan menu utama masukan 1 untuk masuk ke menu kalkulator
+	2. Selanjutnya masukan operasi matematika yang ingin kita hitung contohnya 5*(6+7)
+	3. Jika sudah tekan enter dan hasilnya akan tampil dilayar
+	4. Setelah itu akan tampil pertanyaan apakah ingin mencoba lagi ? tekan y jika ingin mencoba lagi dan tekan n jika tidak ingin mencoba lagi
+	5. Jika user menekan Y\y maka program akan kembali meminta untuk menginputkan operasi matematika yang ingin dihitung
+	6. Jika user menekan N\n\sembarang huruf /sembarang angka maka program akan kembali ke menu utama
+B. Fitur Konversi Suhu 
+   Fitur ini dapat digunakan untuk melakukan konversi suhu dari dari satuan celcius hingga satuan kelvin
+   Pada fitur ini kita bisa mengkonversi 1 suhu ke 3 satuan suhu lainnya contoh suhu awal yang user pilih adalah Celcius maka program akan mengkonversikan suhu celcius ke reamur, fahrenheit, dan kelvin
+   Untuk menggunakannya kita bisa melakukan langkah langkah seperti dibawah ini
+ 	1. Pada tampilan menu utama masukan 2 untuk masuk ke menu konversi suhu
+	2. Lalu user akan diberikan pilihan satuan suhu yang akan dijadikan suhu awal yang nantinya akan dikonversikan
+	3. User bisa bebas memilih antara 1-4 atau antara celcius, reamur, fahrenheit, kelvin
+	4. Dari pilihan yang tersedia program akan mengkonversi ke satuan suhu lainnya yang tidak dipilih oleh user
+        Kondisi Pemilihan: 
+        a) jika satuan suhu awal yang user pilih adalah Celcius maka program akan mengkonversikan suhu Celcius ke Reamur, Fahrenheit, dan Kelvin
+	b) jika satuan suhu awal yang user pilih adalah Reamur maka program akan mengkonversikan suhu Reamur ke Celcius, Fahrenheit, dan Kelvin
+	c) jika satuan suhu awal yang user pilih adalah Fahrenheit maka program akan mengkonversikan suhu Fahrenheit ke Celcius, Reamur, dan Kelvin
+	d) jika satuan suhu awal yang user pilih adalah Kelvin maka program akan mengkonversikan suhu Kelvin ke Celcius, Reamur, dan Fahrenheit
+	5. Setelah memilih satuan suhu awal user akan diberikan input field untuk memasukan suhu yang ingin dikonversi dari satuan suhu awal
+	6. Setelah memasukan besar suhu maka program akan menampilkan hasil konversinya sesuai dengan ketentuan kodisi
+	7. Setelah muncul hasil konversi maka program akan menampilkan pilihan apakah ingin mencoba lagi atau tidak
+	8. Jika user menekan Y/y maka program akan kembali meminta untuk menginputkan operasi matematika yang ingin dihitung
+	9. Jika user menekan N/n/sembarang huruf/sembarang angka maka program akan kembali ke menu utama
+C. Cara Penggunaan
+   Fitur ini dapat digunakan untuk mengetahui tata cara penggunaan aplikasi ini user bisa menampilkan menu ini dengan 
+   Memasukan 3 pada menu utama maka akan tampil tata cara penggunaan aplikasi ini.
+D. Keluar
+   Seperti namanya fitur ini digunakan untuk keluar dari aplikasi ClecCalc.
