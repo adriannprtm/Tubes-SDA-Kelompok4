@@ -34,7 +34,6 @@ typedef struct {
 	address Top;
 } List;
 
-
 /*********** PROTOTYPE ****************/
 /**** Predikat untuk test keadaan LIST  ****/
 boolean StackEmpty (List L);

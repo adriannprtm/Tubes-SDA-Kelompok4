@@ -16,7 +16,6 @@ void TampilanKonversiSuhu(){
 	gotoxy(31,4);printf("| Celcius (C) | Reamur (R) | Fahrenheit (F) | Kelvin (K) |\n");
 	gotoxy(31,5);printf("+-------------+------------+----------------+------------+\n");
 }
-	
 
 void mainMenuTemp(){
 	int cursorY;
