@@ -1,0 +1,9 @@
+# ninja log v5
+1399	1523	7377787820078810	untitled.exe	c7ef872e84236cdc
+4	388	7377800678427711	build.ninja	66705677511fb350
+3	171	7377800986862422	CMakeFiles/ClevCalc.dir/main.c.obj	f4caa69ed2118dfb
+41	234	7377800987607183	CMakeFiles/ClevCalc.dir/src/temperature.c.obj	a220623592271a5d
+22	1427	7377800999540405	CMakeFiles/ClevCalc.dir/src/StackDinamis.c.obj	2c5e0b2bfeda9ecb
+12	1483	7377801000110609	CMakeFiles/ClevCalc.dir/src/calculator.c.obj	147d211a257fc94e
+58	1498	7377801000248959	CMakeFiles/ClevCalc.dir/src/tree.c.obj	5b1cf60182961701
+1498	1623	7377801001457116	ClevCalc.exe	c664bd9e084ff8bb
