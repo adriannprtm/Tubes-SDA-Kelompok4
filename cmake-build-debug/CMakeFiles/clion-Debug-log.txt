@@ -5,6 +5,6 @@
 -- Check for working C compiler: C:/TDM-GCC-64/bin/gcc.exe - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
--- Configuring done (1.4s)
+-- Configuring done (6.0s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/lxgho/Documents/ikis/kuliah/SDA-Praktik/Tubes/ClevCalculator/cmake-build-debug
