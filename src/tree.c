@@ -62,23 +62,26 @@ bool isOperasi(char oper){
 	}
 	return false;
 }
+
 double round_double(double number, int decimal_places) {
     double multiplier = pow(10.0, decimal_places);
     double rounded_number = roundf(number * multiplier) / multiplier;
     return rounded_number;
 }
-char isOperator(struct calcTree *root){
-	char temp;
+
+bool isOperator(struct calcTree *root){
+	// char temp;
 	if(root->isi_data.mathOperator == '\0'){
-		temp = '0';
-		return temp; 
+		// temp = '0';
+		return false;
 	}else{
-		temp = '1';
-		return temp;
+		// temp = '1';
+		return true;
 	}
 }
+
 double count(struct calcTree *root){
-    if(isOperator(root)=='1'){
+    if(isOperator(root) == true){
         switch(root->isi_data.mathOperator){
             case '+':{
                 return count(root->lChild)+count(root->rChild);
@@ -104,6 +107,7 @@ double count(struct calcTree *root){
 	}
     return root->isi_data.angka;
 }
+
 double inspectExpression(char mathExpression[],int firstIndex,int lastIndex){
     int i;
     double sum=0.0;
@@ -138,7 +142,7 @@ void infixToPostfix(struct calcTree *root){
     if(root){
         infixToPostfix(root->lChild);
         infixToPostfix(root->rChild);
-        if(isOperator(root) == '0'){
+        if(isOperator(root) == false){
             printf("\033[0;37m%f ",root->isi_data.angka);
         }
         else{
@@ -149,7 +153,7 @@ void infixToPostfix(struct calcTree *root){
 
 void infixToPrefix(struct calcTree *root){
     if(root){
-        if(isOperator(root) == '0'){
+        if(isOperator(root) == false){
             printf("\033[0;37m%f ",root->isi_data.angka);
         }
         else{

@@ -1,0 +1,7 @@
+# ninja log v5
+3	140	7377949803652672	CMakeFiles/untitled.dir/main.c.obj	7867b305f19c0a67
+13	178	7377949804031914	CMakeFiles/untitled.dir/src/temperature.c.obj	37931f76a8d040de
+10	779	7377949810040573	CMakeFiles/untitled.dir/src/StackDinamis.c.obj	5b2677b4b58b2c10
+7	838	7377949810630793	CMakeFiles/untitled.dir/src/calculator.c.obj	2c693bd747e10e7a
+18	893	7377949811177270	CMakeFiles/untitled.dir/src/tree.c.obj	bf58a3859bd7555a
+893	1017	7377949812370813	untitled.exe	8f8371812fd6f70f

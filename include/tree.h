@@ -24,7 +24,7 @@ double inspectExpression(char mathExpression[], int firstIndex, int lastIndex);
 //Function untuk memeriksa apakah inputan mengandung operator atau hanya angka.
 struct calcTree * createTree(char mathExpression[], int firstIndex, int lastIndex); 
 //Function untuk membuat tree
-char isOperator(struct calcTree *root);
+bool isOperator(struct calcTree *root);
 //Function untuk mengecek operator atau bukan
 double round_double(double number, int decimal_places);
 //Function untuk membulatkan hasil perhitungan

@@ -1,14 +1,8 @@
 # ninja log v5
-7	266	7377784185527457	CMakeFiles/untitled.dir/main.c.obj	13b891f7afd1ee3
-1390	1533	7377784198133081	untitled.exe	c7ef872e84236cdc
-16	259	7377784185454697	CMakeFiles/untitled.dir/src/temperature.c.obj	6c1cf4ccd457ce3e
-22	1389	7377784196758521	CMakeFiles/untitled.dir/src/tree.c.obj	317c160e41839d86
-14	1027	7377546911563989	CMakeFiles/untitled.dir/src/StackDinamis.c.obj	cc000362ae5c26a5
-4	388	7377936638996513	build.ninja	66705677511fb350
-12	1312	7377784195980833	CMakeFiles/untitled.dir/src/calculator.c.obj	6da4424b85e80a46
 41	159	7377938305831505	CMakeFiles/untitled.dir/main.c.obj	df6e747ba88d62ca
+1614	1767	7377949603698619	untitled.exe	1f994d9c0e7a466f
 51	198	7377938306232836	CMakeFiles/untitled.dir/src/temperature.c.obj	ab9ec5ae1fe920c4
+31	1614	7377949602247296	CMakeFiles/untitled.dir/src/tree.c.obj	bb6c9e4f9d66cd
 48	830	7377938312549308	CMakeFiles/untitled.dir/src/StackDinamis.c.obj	93167d12367d0c7b
-45	833	7377938312584373	CMakeFiles/untitled.dir/src/calculator.c.obj	4b6663f4eac2d6a9
-55	856	7377938312809396	CMakeFiles/untitled.dir/src/tree.c.obj	bb6c9e4f9d66cd
-856	1043	7377938314641150	untitled.exe	1f994d9c0e7a466f
+4	388	7377949760915647	build.ninja	66705677511fb350
+27	1610	7377949602207259	CMakeFiles/untitled.dir/src/calculator.c.obj	4b6663f4eac2d6a9
