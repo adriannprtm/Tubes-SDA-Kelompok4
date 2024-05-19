@@ -6,3 +6,9 @@
 14	1027	7377546911563989	CMakeFiles/untitled.dir/src/StackDinamis.c.obj	cc000362ae5c26a5
 4	388	7377936638996513	build.ninja	66705677511fb350
 12	1312	7377784195980833	CMakeFiles/untitled.dir/src/calculator.c.obj	6da4424b85e80a46
+41	159	7377938305831505	CMakeFiles/untitled.dir/main.c.obj	df6e747ba88d62ca
+51	198	7377938306232836	CMakeFiles/untitled.dir/src/temperature.c.obj	ab9ec5ae1fe920c4
+48	830	7377938312549308	CMakeFiles/untitled.dir/src/StackDinamis.c.obj	93167d12367d0c7b
+45	833	7377938312584373	CMakeFiles/untitled.dir/src/calculator.c.obj	4b6663f4eac2d6a9
+55	856	7377938312809396	CMakeFiles/untitled.dir/src/tree.c.obj	bb6c9e4f9d66cd
+856	1043	7377938314641150	untitled.exe	1f994d9c0e7a466f
