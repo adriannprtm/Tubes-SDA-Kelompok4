@@ -7,8 +7,7 @@ set(SOURCES
         src/StackDinamis.c
         src/temperature.c
         src/tree.c
-        src/gotoxy.c
-        #        src/gotoxy.c
+#        src/gotoxy.c
 )
 set(HEADERS
         include/calculator.h
