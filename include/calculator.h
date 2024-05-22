@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <windows.h>
+#include <conio.h>
 
 
 void gotoxy(int x, int y);
