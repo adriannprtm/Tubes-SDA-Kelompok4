@@ -1,5 +1,5 @@
 // Modified by:
-// Krisna Purnama 1B-231524048: "isOperator"
+// Krisna Purnama 1B-231524048: "isOperator, inspectExpression"
 
 #include <stdio.h>
 #include <string.h>
@@ -131,7 +131,8 @@ double inspectExpression(char mathExpression[], int firstIndex, int lastIndex) {
     int i;
     double sum = 0.0;
     int isOperator = 1;
-    char foundDecimal = '0'; //0 = false; 1 = true
+    // char foundDecimal = '0'; //0 = false; 1 = true
+    double foundDecimal = false;
     int decimalPlaces = 1;
     if (mathExpression[firstIndex] == '-') {
         isOperator = -1;
@@ -142,10 +143,10 @@ double inspectExpression(char mathExpression[], int firstIndex, int lastIndex) {
             return MAX;
             //Kalau masuk kesini berarti itu tandanya operator (Fahri)
         }
-        if (mathExpression[i] == '.' || foundDecimal == '1') {
-            if (foundDecimal == '0') {
+        if (mathExpression[i] == '.' || foundDecimal == true) {
+            if (foundDecimal == false) {
                 i = i + 1;
-                foundDecimal = '1';
+                foundDecimal = true;
             }
             sum += (mathExpression[i] - '0') * pow(10, -1 * decimalPlaces);
             decimalPlaces++;
