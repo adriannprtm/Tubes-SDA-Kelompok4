@@ -7,15 +7,21 @@
 
 
 void gotoxy(int x, int y);
-//Menu utama dari kalculator 
+
+//Menu utama dari kalculator
 void TampilanMainMenu();
+
 //Menu utama dari fitur kalkulator ilmiah
 void TampilanKalkulator();
+
 //Menampilkan tampilan untuk menginputkan ekspresi matematika
-void TampilanBatasanProgram(); 
+void TampilanBatasanProgram();
+
 //Menampilkan batasan program kalkulator
 void runCalc();
+
 //Untuk memilih menu kalkulator yang diinginkan
 void aboutCalculator();
+
 //Menampilkan cara penggunaan calculator
 #endif
