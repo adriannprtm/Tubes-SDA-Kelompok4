@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(ClevCalc C CXX)
+project(untilted C CXX)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 14)
@@ -24,4 +24,4 @@ file(GLOB SYMBOLICCXX_SOURCES ${PROJECT_SOURCE_DIR}/path/to/SymbolicC++/*.cpp)
 list(APPEND SOURCES ${SYMBOLICCXX_SOURCES})
 
 # Tambahkan eksekutabel dengan semua sumber yang ada
-add_executable(ClevCalc ${SOURCES})
+add_executable(untilted ${SOURCES})

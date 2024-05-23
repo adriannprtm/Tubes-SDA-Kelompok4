@@ -12,12 +12,7 @@
 #include <windows.h>
 #include <conio.h>
 
-void gotoxy(int x, int y) {
-    COORD coord;
-    coord.X = x;
-    coord.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
+
 
 void TampilanMainMenu() {
     wchar_t *copyright = L"© Copyright all rights reserved";

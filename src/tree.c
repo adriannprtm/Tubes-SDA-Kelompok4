@@ -8,6 +8,7 @@
 #include <math.h>
 #include "../include/tree.h"
 #include "../include/StackDinamis.h"
+#include "../include/calculator.h"
 //#include "./gotoxy.c"
 #define MAX 0x3f3f3f3f
 

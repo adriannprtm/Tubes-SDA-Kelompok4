@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include "../include/temperature.h"
+#include "../include/calculator.h"
 //#include "./gotoxy.c"
 void TampilanKonversiSuhu() {
     printf("Konversi Suhu\n");
