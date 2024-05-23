@@ -158,7 +158,7 @@ void TampilanBatasanProgram() {
 
 void aboutCalculator() {
     char rules[255];
-    FILE *in = fopen("howto.txt", "r"); //perintah untuk membuka file dengan mode r / read
+    FILE *in = fopen("../common/howto.txt", "r"); //perintah untuk membuka file dengan mode r / read
     system("cls");
     printf("\n");
     while (!feof(in)) {
