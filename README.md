@@ -1,8 +1,8 @@
-## Anggota Kelompok 5:
+## Anggota Kelompok 4:
     Kelompok 4 Kelas 1B-TIF4
-* Adrian Pratama Sasmita (231524033)\
-* Ahmad Fatan Haidar (231524034)\
-* Fathan Khairun Normawijaya (231524044)\
+* Adrian Pratama Sasmita (231524033)
+* Ahmad Fatan Haidar (231524034)
+* Fathan Khairun Normawijaya (231524044)
 * Krisna Purnama (231524048)
 
 ## Kalkulator Sains Binary Tree
