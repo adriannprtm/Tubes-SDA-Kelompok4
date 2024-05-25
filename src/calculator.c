@@ -12,8 +12,6 @@
 #include <windows.h>
 #include <conio.h>
 
-
-
 void TampilanMainMenu() {
     wchar_t *copyright = L"© Copyright all rights reserved";
     HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);

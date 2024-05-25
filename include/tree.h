@@ -5,11 +5,13 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <math.h>
+// #define MAX 1e9
 #define Nil NULL
 
 typedef struct data {
     double angka;
-    char mathOperator;
+    char mathOperator[5];
 } data;
 
 typedef struct calcTree {
@@ -17,6 +19,8 @@ typedef struct calcTree {
     struct calcTree *lChild; //Left child
     struct calcTree *rChild; //Right child
 } calcTree;
+
+double evaluate(struct calcTree *root);
 
 double count(struct calcTree *root);
 
@@ -43,6 +47,12 @@ void infixToPostfix(struct calcTree *root);
 
 //Mengubah ekspresi matematika infix menjadi postfix
 void infixToPrefix(struct calcTree *root);
+
+//Memeriksa apakah trigonometri
+bool isTrig(char oper[]);
+
+// Memeriksa apakah substring merupakan fungsi trigonometri yang valid dan diikuti oleh '('.
+bool isTrigFunction(const char *str);
 
 //Mengubah ekspresi matematika infix menjadi pretfix
 #endif
