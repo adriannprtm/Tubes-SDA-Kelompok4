@@ -12,17 +12,14 @@
 //#include "./gotoxy.c"
 #define MAX 0x3f3f3f3f
 
-bool isTrig(char oper[]) {
-    if (strcmp(oper, "sin") == 0 || strcmp(oper, "cos") == 0 || strcmp(oper, "tan") == 0) {
-        return true;
-    }
-    return false;
-}
-
 bool isTrigFunction(const char *str) {
     return (strncmp(str, "sin(", 4) == 0 ||
             strncmp(str, "cos(", 4) == 0 ||
             strncmp(str, "tan(", 4) == 0);
+}
+
+double toRadians(double degree) {
+    return degree * (M_PI / 180.0);
 }
 
 bool isOperasi(char c) {
@@ -47,7 +44,7 @@ double factorial(double n) {
         return 1;
     }
     double result = 1;
-    for (int i = 2; i <= (int)n; i++) {
+    for (int i = 2; i <= (int) n; i++) {
         result *= i;
     }
     return result;
@@ -73,20 +70,21 @@ double count(struct calcTree *root) {
             }
             case '!': {
                 double operand = count(root->lChild);
-                if (operand < 0 || operand != (int)operand) {
+                if (operand < 0 || operand != (int) operand) {
                     return -1; // Faktor untuk angka negatif atau non-integer tidak terdefinisi
                 }
                 return factorial(operand);
             }
             default: {
                 // Handle trigonometric functions
-                if (strcmp(root->isi_data.mathOperator, "sin") == 0) {
-                    return sin(count(root->lChild));
-                } else if (strcmp(root->isi_data.mathOperator, "cos") == 0) {
-                    return cos(count(root->lChild));
-                } else if (strcmp(root->isi_data.mathOperator, "tan") == 0) {
-                    return tan(count(root->lChild));
+                if (strncmp(root->isi_data.mathOperator, "sin", 3) == 0) {
+                    return sin(toRadians(count(root->lChild)));
+                } else if (strncmp(root->isi_data.mathOperator, "cos", 3) == 0) {
+                    return cos(toRadians(count(root->lChild)));
+                } else if (strncmp(root->isi_data.mathOperator, "tan", 3) == 0) {
+                    return tan(toRadians(count(root->lChild)));
                 }
+                return 0;
             }
         }
     }
@@ -113,9 +111,11 @@ void infixToPostfix(struct calcTree *root) {
         if (!isOperator(root)) {
             printf("\033[0;37m%f ", root->isi_data.angka);
         } else {
-            if (strlen(root->isi_data.mathOperator) > 1) { // Fungsi trigonometri
+            if (strlen(root->isi_data.mathOperator) > 1) {
+                // Fungsi trigonometri
                 printf("\033[0;37m%s ", root->isi_data.mathOperator);
-            } else { // Operator biasa
+            } else {
+                // Operator biasa
                 printf("\033[0;37m%c ", root->isi_data.mathOperator[0]);
             }
         }
@@ -127,9 +127,11 @@ void infixToPrefix(struct calcTree *root) {
         if (!isOperator(root)) {
             printf("\033[0;37m%f ", root->isi_data.angka);
         } else {
-            if (strlen(root->isi_data.mathOperator) > 1) { // Fungsi trigonometri
+            if (strlen(root->isi_data.mathOperator) > 1) {
+                // Fungsi trigonometri
                 printf("\033[0;37m%s ", root->isi_data.mathOperator);
-            } else { // Operator biasa
+            } else {
+                // Operator biasa
                 printf("\033[0;37m%c ", root->isi_data.mathOperator[0]);
             }
         }
@@ -148,35 +150,41 @@ bool isValid(char input[]) {
 
     if (checkBracket(input)) {
         for (int i = 0; i < strlen(input); i++) {
-            if (isdigit(input[i]) || isOperasi(input[i]) || input[i] == '(' || input[i] == ')' || input[i] == '.' || isTrigFunction(&input[i])) {
+            if (isdigit(input[i]) || isOperasi(input[i]) || input[i] == '(' || input[i] == ')' || input[i] == '.' ||
+                isTrigFunction(&input[i])) {
                 if (isTrigFunction(&input[i])) {
                     i += 2; // Skip the next 2 characters as we've already checked a trig function
                 }
-                if (input[i] == '(' && !((isOperasi(input[i-1]) || input[i-1] == '(' || isTrigFunction(&input[i-3])) && (isdigit(input[i+1]) || input[i+1] == '(' || input[i+1] == '-'))) {
-                    printf("ERROR: Invalid character before '('. [%c%c%c]\n", input[i-1], input[i], input[i+1]);
+                if (input[i] == '(' && !((isOperasi(input[i - 1]) || input[i - 1] == '(' ||
+                                          isTrigFunction(&input[i - 3])) && (
+                                             isdigit(input[i + 1]) || input[i + 1] == '(' || input[i + 1] == '-'))) {
+                    printf("ERROR: Invalid character before '('. [%c%c%c]\n", input[i - 1], input[i], input[i + 1]);
                     return false;
-                } else if (input[i] == ')' && !((isdigit(input[i-1]) || input[i-1] == ')') && (isOperasi(input[i+1]) || input[i+1] == ')' || input[i+1] == '\0'))) {
-                    printf("ERROR: Invalid character after ')'. [%c%c%c]\n", input[i-1], input[i], input[i+1]);
+                } else if (input[i] == ')' && !((isdigit(input[i - 1]) || input[i - 1] == ')') && (
+                                                    isOperasi(input[i + 1]) || input[i + 1] == ')' || input[i + 1] ==
+                                                    '\0'))) {
+                    printf("ERROR: Invalid character after ')'. [%c%c%c]\n", input[i - 1], input[i], input[i + 1]);
                     return false;
                 }
-                if ((isOperasi(input[i]) && isOperasi(input[i+1]) && isOperasi(input[i+2])) || (isOperasi(input[i]) && isOperasi(input[i+1] && input[i+1] != '-'))) {
-                    printf("ERROR: Consecutive operators. [%c%c%c]\n", input[i-1], input[i], input[i+1]);
+                if ((isOperasi(input[i]) && isOperasi(input[i + 1]) && isOperasi(input[i + 2])) || (
+                        isOperasi(input[i]) && isOperasi(input[i + 1] && input[i + 1] != '-'))) {
+                    printf("ERROR: Consecutive operators. [%c%c%c]\n", input[i - 1], input[i], input[i + 1]);
                     return false;
                 }
-                if (input[i] == '/' && input[i+1] == '0') {
+                if (input[i] == '/' && input[i + 1] == '0') {
                     int j = i + 1;
                     while (j < strlen(input)) {
                         if (input[j] != '0' && isdigit(input[j])) {
                             break;
                         } else if (isOperasi(input[j]) || j == strlen(input) - 1) {
-                            printf("ERROR: Division by zero. [%c%c%c]\n", input[i-1], input[i], input[i+1]);
+                            printf("ERROR: Division by zero. [%c%c%c]\n", input[i - 1], input[i], input[i + 1]);
                             return false;
                         }
                         j++;
                     }
                 }
             } else {
-                printf("ERROR: Invalid character. [%c%c]\n", input[i], input[i+1]);
+                printf("ERROR: Invalid character. [%c%c]\n", input[i], input[i + 1]);
                 return false;
             }
         }
@@ -200,10 +208,10 @@ struct calcTree *createTree(char mathExpression[], int firstIndex, int lastIndex
     }
 
     int posPlusOrSub = -1; // Posisi dari operator penjumlahan (+) dan pengurangan (-)
-    int posDivOrMul = -1;  // Posisi dari operator perkalian (*) dan pembagian (/)
-    int posExp = -1;       // Posisi dari operator pangkat (^)
-    int posFact = -1;      // Posisi dari operator faktorial (!)
-    int posTrig = -1;      // Posisi dari operator trigonometri
+    int posDivOrMul = -1; // Posisi dari operator perkalian (*) dan pembagian (/)
+    int posExp = -1; // Posisi dari operator pangkat (^)
+    int posFact = -1; // Posisi dari operator faktorial (!)
+    int posTrig = -1; // Posisi dari operator trigonometri
     double num;
 
     num = inspectExpression(mathExpression, firstIndex, lastIndex);
@@ -233,7 +241,8 @@ struct calcTree *createTree(char mathExpression[], int firstIndex, int lastIndex
                 posExp = k;
             } else if (mathExpression[k] == '!') {
                 posFact = k;
-            } else if (strncmp(&mathExpression[k], "sin", 3) == 0 || strncmp(&mathExpression[k], "cos", 3) == 0 || strncmp(&mathExpression[k], "tan", 3) == 0) {
+            } else if (strncmp(&mathExpression[k], "sin", 3) == 0 || strncmp(&mathExpression[k], "cos", 3) == 0 ||
+                       strncmp(&mathExpression[k], "tan", 3) == 0) {
                 posTrig = k;
             }
         }
