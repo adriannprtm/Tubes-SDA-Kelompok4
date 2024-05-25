@@ -54,5 +54,7 @@ bool isTrig(char oper[]);
 // Memeriksa apakah substring merupakan fungsi trigonometri yang valid dan diikuti oleh '('.
 bool isTrigFunction(const char *str);
 
+double factorial(double n);
+
 //Mengubah ekspresi matematika infix menjadi pretfix
 #endif

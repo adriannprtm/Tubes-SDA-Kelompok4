@@ -25,11 +25,8 @@ bool isTrigFunction(const char *str) {
             strncmp(str, "tan(", 4) == 0);
 }
 
-bool isOperasi(char oper) {
-    if (oper == '+' || oper == '-' || oper == '*' || oper == '/' || oper == '^') {
-        return true;
-    }
-    return false;
+bool isOperasi(char c) {
+    return c == '+' || c == '-' || c == '*' || c == '/' || c == '^' || c == '!';
 }
 
 double round_double(double number, int decimal_places) {
@@ -42,28 +39,54 @@ bool isOperator(struct calcTree *node) {
     return (node->isi_data.mathOperator[0] != '\0');
 }
 
+double factorial(double n) {
+    if (n < 0) {
+        return -1; // Factorial untuk angka negatif tidak terdefinisi
+    }
+    if (n == 0 || n == 1) {
+        return 1;
+    }
+    double result = 1;
+    for (int i = 2; i <= (int)n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
 double count(struct calcTree *root) {
     if (isOperator(root)) {
-        if (isTrig(root->isi_data.mathOperator)) {
-            if (strcmp(root->isi_data.mathOperator, "sin") == 0) {
-                return sin(count(root->lChild));
-            } else if (strcmp(root->isi_data.mathOperator, "cos") == 0) {
-                return cos(count(root->lChild));
-            } else if (strcmp(root->isi_data.mathOperator, "tan") == 0) {
-                return tan(count(root->lChild));
+        switch (root->isi_data.mathOperator[0]) {
+            case '+': {
+                return count(root->lChild) + count(root->rChild);
             }
-        } else {
-            switch (root->isi_data.mathOperator[0]) {
-                case '+':
-                    return count(root->lChild) + count(root->rChild);
-                case '-':
-                    return count(root->lChild) - count(root->rChild);
-                case '*':
-                    return count(root->lChild) * count(root->rChild);
-                case '/':
-                    return count(root->lChild) / count(root->rChild);
-                case '^':
-                    return pow(count(root->lChild), count(root->rChild));
+            case '-': {
+                return count(root->lChild) - count(root->rChild);
+            }
+            case '/': {
+                return count(root->lChild) / count(root->rChild);
+            }
+            case '*': {
+                return count(root->lChild) * count(root->rChild);
+            }
+            case '^': {
+                return pow(count(root->lChild), count(root->rChild));
+            }
+            case '!': {
+                double operand = count(root->lChild);
+                if (operand < 0 || operand != (int)operand) {
+                    return -1; // Faktor untuk angka negatif atau non-integer tidak terdefinisi
+                }
+                return factorial(operand);
+            }
+            default: {
+                // Handle trigonometric functions
+                if (strcmp(root->isi_data.mathOperator, "sin") == 0) {
+                    return sin(count(root->lChild));
+                } else if (strcmp(root->isi_data.mathOperator, "cos") == 0) {
+                    return cos(count(root->lChild));
+                } else if (strcmp(root->isi_data.mathOperator, "tan") == 0) {
+                    return tan(count(root->lChild));
+                }
             }
         }
     }
@@ -116,73 +139,52 @@ void infixToPrefix(struct calcTree *root) {
 }
 
 bool isValid(char input[]) {
-    int i = 0;
-    int length = strlen(input);
-
-    // Memeriksa karakter pertama
     if (!(input[0] == '-' || isdigit(input[0]) || input[0] == '(' || isTrigFunction(input))) {
-        gotoxy(44, 5);
-        printf("ERROR                       [%c%c%c]", input[0], input[1], input[2]);
+        printf("ERROR: Invalid start of expression [%c%c]\n", input[0], input[1]);
         return false;
     }
 
-    // Memeriksa fungsi trigonometri di awal string
-    if (isTrigFunction(input)) {
-        i += 4; // Mengabaikan 'sin(', 'cos(', atau 'tan('
-    }
-
-    input[length] = '\0';
+    input[strlen(input)] = '\0';
 
     if (checkBracket(input)) {
-        for (; i < length; i++) {
-            if (isdigit(input[i]) || isOperasi(input[i]) || (input[i] == '(') || (input[i] == ')') || (
-                    input[i] == '.')) {
-                if (input[i] == '(' && !((isOperasi(input[i - 1]) || (input[i - 1] == '(')) && (
-                                             isdigit(input[i + 1]) || input[i + 1] == '(' || input[i + 1] ==
-                                             '-'))) {
-                    gotoxy(44, 5);
-                    printf("ERROR                       [%c%c%c]", input[i - 1], input[i], input[i + 1]);
+        for (int i = 0; i < strlen(input); i++) {
+            if (isdigit(input[i]) || isOperasi(input[i]) || input[i] == '(' || input[i] == ')' || input[i] == '.' || isTrigFunction(&input[i])) {
+                if (isTrigFunction(&input[i])) {
+                    i += 2; // Skip the next 2 characters as we've already checked a trig function
+                }
+                if (input[i] == '(' && !((isOperasi(input[i-1]) || input[i-1] == '(' || isTrigFunction(&input[i-3])) && (isdigit(input[i+1]) || input[i+1] == '(' || input[i+1] == '-'))) {
+                    printf("ERROR: Invalid character before '('. [%c%c%c]\n", input[i-1], input[i], input[i+1]);
                     return false;
-                } else if (input[i] == ')' && !(
-                               (isdigit(input[i - 1]) || input[i - 1] == ')') && (
-                                   isOperasi(input[i + 1]) || input[i + 1] == ')' || input[i + 1] == '\0'))) {
-                    gotoxy(44, 5);
-                    printf("ERROR                       [%c%c%c]", input[i - 1], input[i], input[i + 1]);
+                } else if (input[i] == ')' && !((isdigit(input[i-1]) || input[i-1] == ')') && (isOperasi(input[i+1]) || input[i+1] == ')' || input[i+1] == '\0'))) {
+                    printf("ERROR: Invalid character after ')'. [%c%c%c]\n", input[i-1], input[i], input[i+1]);
                     return false;
                 }
-                if ((isOperasi(input[i]) && isOperasi(input[i + 1]) && isOperasi(input[i + 2])) || (
-                        isOperasi(input[i]) && (isOperasi(input[i + 1]) != (input[i + 1] == '-')))) {
-                    gotoxy(44, 5);
-                    printf("ERROR                       [%c%c%c]", input[i - 1], input[i], input[i + 1]);
+                if ((isOperasi(input[i]) && isOperasi(input[i+1]) && isOperasi(input[i+2])) || (isOperasi(input[i]) && isOperasi(input[i+1] && input[i+1] != '-'))) {
+                    printf("ERROR: Consecutive operators. [%c%c%c]\n", input[i-1], input[i], input[i+1]);
                     return false;
                 }
-                if ((input[i] == '/' && input[i + 1] == '0')) {
+                if (input[i] == '/' && input[i+1] == '0') {
                     int j = i + 1;
-                    while (j < length) {
+                    while (j < strlen(input)) {
                         if (input[j] != '0' && isdigit(input[j])) {
                             break;
-                        } else if (isOperasi(input[j]) || (j == length - 1)) {
-                            gotoxy(44, 5);
-                            printf("ERROR                       [%c%c%c]", input[i - 1], input[i], input[i + 1]);
+                        } else if (isOperasi(input[j]) || j == strlen(input) - 1) {
+                            printf("ERROR: Division by zero. [%c%c%c]\n", input[i-1], input[i], input[i+1]);
                             return false;
                         }
                         j++;
                     }
                 }
-            } else if (isTrigFunction(&input[i])) {
-                i += 3; // Mengabaikan 'sin', 'cos', atau 'tan'
-                continue;
             } else {
-                gotoxy(44, 5);
-                printf("ERROR                       [%c%c%c]", input[i], input[i + 1]);
+                printf("ERROR: Invalid character. [%c%c]\n", input[i], input[i+1]);
                 return false;
             }
         }
     } else {
-        gotoxy(44, 5);
-        printf("ERROR                       [%c%c%c]", input[0], input[1]);
+        printf("ERROR: Unmatched brackets. [%c%c]\n", input[0], input[1]);
         return false;
     }
+
     return true;
 }
 
@@ -200,6 +202,7 @@ struct calcTree *createTree(char mathExpression[], int firstIndex, int lastIndex
     int posPlusOrSub = -1; // Posisi dari operator penjumlahan (+) dan pengurangan (-)
     int posDivOrMul = -1;  // Posisi dari operator perkalian (*) dan pembagian (/)
     int posExp = -1;       // Posisi dari operator pangkat (^)
+    int posFact = -1;      // Posisi dari operator faktorial (!)
     int posTrig = -1;      // Posisi dari operator trigonometri
     double num;
 
@@ -210,7 +213,6 @@ struct calcTree *createTree(char mathExpression[], int firstIndex, int lastIndex
         root->isi_data.angka = num;
         root->lChild = NULL;
         root->rChild = NULL;
-        // printf("Created leaf node with value: %f\n", num);
         return root;
     }
 
@@ -229,6 +231,8 @@ struct calcTree *createTree(char mathExpression[], int firstIndex, int lastIndex
                 posDivOrMul = k;
             } else if (mathExpression[k] == '^') {
                 posExp = k;
+            } else if (mathExpression[k] == '!') {
+                posFact = k;
             } else if (strncmp(&mathExpression[k], "sin", 3) == 0 || strncmp(&mathExpression[k], "cos", 3) == 0 || strncmp(&mathExpression[k], "tan", 3) == 0) {
                 posTrig = k;
             }
@@ -240,28 +244,30 @@ struct calcTree *createTree(char mathExpression[], int firstIndex, int lastIndex
         root->isi_data.mathOperator[1] = '\0';
         root->lChild = createTree(mathExpression, firstIndex, posPlusOrSub - 1);
         root->rChild = createTree(mathExpression, posPlusOrSub + 1, lastIndex);
-        // printf("Created operator node: %c\n", root->isi_data.mathOperator[0]);
         return root;
     } else if (posDivOrMul != -1) {
         root->isi_data.mathOperator[0] = mathExpression[posDivOrMul];
         root->isi_data.mathOperator[1] = '\0';
         root->lChild = createTree(mathExpression, firstIndex, posDivOrMul - 1);
         root->rChild = createTree(mathExpression, posDivOrMul + 1, lastIndex);
-        // printf("Created operator node: %c\n", root->isi_data.mathOperator[0]);
         return root;
     } else if (posExp != -1) {
         root->isi_data.mathOperator[0] = mathExpression[posExp];
         root->isi_data.mathOperator[1] = '\0';
         root->lChild = createTree(mathExpression, firstIndex, posExp - 1);
         root->rChild = createTree(mathExpression, posExp + 1, lastIndex);
-        // printf("Created operator node: %c\n", root->isi_data.mathOperator[0]);
+        return root;
+    } else if (posFact != -1) {
+        root->isi_data.mathOperator[0] = mathExpression[posFact];
+        root->isi_data.mathOperator[1] = '\0';
+        root->lChild = createTree(mathExpression, firstIndex, posFact - 1);
+        root->rChild = NULL;
         return root;
     } else if (posTrig != -1) {
         strncpy(root->isi_data.mathOperator, &mathExpression[posTrig], 3);
         root->isi_data.mathOperator[3] = '\0';
         root->lChild = createTree(mathExpression, posTrig + 4, lastIndex - 1); // Move inside the parentheses
         root->rChild = NULL;
-        // printf("Created trigonometric node: %s\n", root->isi_data.mathOperator);
         return root;
     } else {
         return createTree(mathExpression, firstIndex + 1, lastIndex - 1);
