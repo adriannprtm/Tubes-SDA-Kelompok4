@@ -20,8 +20,6 @@ typedef struct calcTree {
     struct calcTree *rChild; //Right child
 } calcTree;
 
-double evaluate(struct calcTree *root);
-
 double count(struct calcTree *root);
 
 //Function untuk menghitung total dari proses proses dalam tree
@@ -36,6 +34,9 @@ bool isOperator(struct calcTree *root);
 //Function untuk mengecek operator atau bukan
 double round_double(double number, int decimal_places);
 
+// Fungsi untuk mengonversi derajat ke radian
+double toRadians(double degree);
+
 //Function untuk membulatkan hasil perhitungan
 bool isOperasi(char oper);
 
@@ -48,11 +49,10 @@ void infixToPostfix(struct calcTree *root);
 //Mengubah ekspresi matematika infix menjadi postfix
 void infixToPrefix(struct calcTree *root);
 
-//Memeriksa apakah trigonometri
-bool isTrig(char oper[]);
-
 // Memeriksa apakah substring merupakan fungsi trigonometri yang valid dan diikuti oleh '('.
 bool isTrigFunction(const char *str);
+
+double factorial(double n);
 
 //Mengubah ekspresi matematika infix menjadi pretfix
 #endif
