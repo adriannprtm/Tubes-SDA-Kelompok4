@@ -17,6 +17,9 @@ set(SOURCES
 #        src/integral.cpp
         main.c
         src/gotoxy.c
+        src/konvTrigonometri.c
+        src/integral.cpp
+        include/integral.h
 )
 
 # Jika ada file sumber C++ di SymbolicC++, tambahkan mereka ke dalam build system
